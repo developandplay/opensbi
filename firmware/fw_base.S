@@ -57,10 +57,10 @@ _start:
 	bne	a0, a6, _wait_relocate_copy_done
 _try_lottery:
 	/* Jump to relocation wait loop if we don't get relocation lottery */
-	la	a6, _relocate_lottery
-	li	a7, 1
-	amoadd.w a6, a7, (a6)
-	bnez	a6, _wait_relocate_copy_done
+	la	a0, _relocate_lottery
+	li	a1, 1
+	call	amo_addw
+	bnez	a0, _wait_relocate_copy_done
 
 	/* Save load address */
 	la	t0, _load_start
