@@ -103,7 +103,7 @@ fw_options:
 	ret
 
 #ifdef FW_PAYLOAD_FDT_PATH
-	.section .text, "ax", %progbits
+	.section .fdt, "ax", %progbits
 	.align 4
 	.globl fdt_bin
 fdt_bin:

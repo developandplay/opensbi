@@ -232,7 +232,7 @@ _scratch_init:
 	REG_S	a5, SBI_SCRATCH_FW_SIZE_OFFSET(tp)
 	/* Store next arg1 in scratch space */
 	MOV_3R	s0, a0, s1, a1, s2, a2
-	call	fw_next_arg1
+	call	fw_prev_arg1
 	REG_S	a0, SBI_SCRATCH_NEXT_ARG1_OFFSET(tp)
 	MOV_3R	a0, s0, a1, s1, a2, s2
 	/* Store next address in scratch space */
