@@ -503,6 +503,7 @@ _trap_handler_s_mode:
 
 	/* Setup exception stack */
 	add	sp, tp, -(SBI_TRAP_REGS_SIZE)
+	REG_S   sp, SBI_SCRATCH_REGS_POINTER_OFFSET(tp)
 
 	/* Jump to code common for all modes */
 	j	_trap_handler_all_mode
@@ -580,6 +581,7 @@ _skip_mstatush_save:
 	add	a0, sp, zero
 	call	sbi_trap_handler
 
+_restore:
 	/* Restore all general regisers except SP and T0 */
 	REG_L	ra, SBI_TRAP_REGS_OFFSET(ra)(sp)
 	REG_L	gp, SBI_TRAP_REGS_OFFSET(gp)(sp)
@@ -633,6 +635,13 @@ _skip_mstatush_restore:
 	REG_L	sp, SBI_TRAP_REGS_OFFSET(sp)(sp)
 
 	mret
+
+	.globl __redirect_trap
+__redirect_trap:
+	/* Restore SP from the trap frame*/
+	csrr	t0, CSR_MSCRATCH
+	REG_L	sp, SBI_SCRATCH_REGS_POINTER_OFFSET(t0)
+	j _restore
 
 	.section .entry, "ax", %progbits
 	.align 3
