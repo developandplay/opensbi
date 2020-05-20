@@ -136,7 +136,7 @@
 #define PMP_L				_UL(0x80)
 
 #define PMP_SHIFT			2
-#define PMP_COUNT			16
+#define PMP_COUNT			4
 
 #if __riscv_xlen == 64
 #define MSTATUS_SD			MSTATUS64_SD
