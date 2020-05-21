@@ -46,6 +46,7 @@
 	.globl _start
 	.globl _start_warm
 _start:
+	call _clear_prev
 	/* Find preferred boot HART id */
 	MOV_3R	s0, a0, s1, a1, s2, a2
 	call	fw_boot_hart
@@ -680,4 +681,10 @@ _reset_regs:
 	li t6, 0
 	csrw CSR_MSCRATCH, 0
 
+	ret
+
+_clear_prev:
+	li a0, 0
+	li a1, 0
+	li a2, 0
 	ret
