@@ -8,7 +8,7 @@
 platform-cppflags-y =
 
 # C Compiler and assembler flags.
-platform-cflags-y =
+platform-cflags-y = -D BLACKPARROT_HART_COUNT=2
 platform-asflags-y =
 
 # Linker flags: additional libraries and object files that the platform

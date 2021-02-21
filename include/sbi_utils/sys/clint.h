@@ -31,4 +31,7 @@ int clint_warm_timer_init(void);
 int clint_cold_timer_init(unsigned long base, u32 hart_count,
 			  bool has_64bit_mmio);
 
+#define CLINT_CORE_MASK     0xFFFF000000
+#define core_offset(hartid) (u64)((hartid << 24) & CLINT_CORE_MASK)
+
 #endif
