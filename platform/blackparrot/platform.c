@@ -28,7 +28,7 @@
 
 uint64_t* getchar_ptr  = (uint64_t*)(0x00100000);
 uint64_t* putchar_ptr  = (uint64_t*)(0x00101000);
-uint64_t* poweroff_ptr = (uint64_t*)(0x00102000);
+uint64_t poweroff_base = (uint64_t)(0x00102000);
 
 /*
  * Platform early initialization.
@@ -147,7 +147,9 @@ static void platform_timer_event_stop(void)
  */
 static int platform_system_reset(u32 type)
 {
-	*poweroff_ptr = type;
+	for (int i = 0; i < BLACKPARROT_HART_COUNT; i++) {
+		*(uint64_t*)(poweroff_base + (i << 3)) = type;
+	}
 	return 0;
 }
 
@@ -175,7 +177,7 @@ const struct sbi_platform platform = {
 	.platform_version	= SBI_PLATFORM_VERSION(0x0, 0x00),
 	.name			= "BlackParrot",
 	.features		= SBI_PLATFORM_DEFAULT_FEATURES,
-	.hart_count		= 1,
+	.hart_count		= BLACKPARROT_HART_COUNT,
 	.hart_stack_size	= SBI_PLATFORM_DEFAULT_HART_STACK_SIZE,
 	.platform_ops_addr	= (unsigned long)&platform_ops
 };

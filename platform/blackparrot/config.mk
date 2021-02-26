@@ -8,7 +8,7 @@
 platform-cppflags-y =
 
 # C Compiler and assembler flags.
-platform-cflags-y =
+platform-cflags-y = -D BLACKPARROT_HART_COUNT=$(PLATFORM_HART_COUNT)
 platform-asflags-y =
 
 # Linker flags: additional libraries and object files that the platform
@@ -28,7 +28,7 @@ platform-ldflags-y =
 #
 PLATFORM_RISCV_XLEN = 64
 PLATFORM_RISCV_ABI = lp64
-PLATFORM_RISCV_ISA = rv64ima
+PLATFORM_RISCV_ISA = rv64imafd
 PLATFORM_RISCV_CODE_MODEL = medany
 
 # Firmware load address configuration. This is mandatory.
