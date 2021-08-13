@@ -33,7 +33,8 @@
 #define UART_REG_EV_PENDING 4
 #define UART_REG_EV_ENABLE  5
 
-uint64_t* uart_lr = (uint64_t*)(0x50001800);
+volatile uint32_t* uart_lr = (uint32_t*)(0x58003000);
+volatile uint32_t* poweroff_ptr = (uint32_t*)(0x58000000);
 
 /*
  * Platform early initialization.
